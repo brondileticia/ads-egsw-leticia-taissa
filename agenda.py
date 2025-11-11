@@ -28,12 +28,50 @@ def listar_contatos():
     for i, contato in enumerate(contatos, 1):
         print(f"{i}. {contato['nome']} - {contato['telefone']} - {contato['email']}")
 
+def buscar_contato():
+    if not contatos:
+        print("Nenhum contato cadastrado.")
+        return
+    
+    nome_busca = input("Digite o nome para buscar: ")
+    encontrados = []
+    
+    for contato in contatos:
+        if nome_busca.lower() in contato['nome'].lower():
+            encontrados.append(contato)
+    
+    if encontrados:
+        print("\n--- CONTATOS ENCONTRADOS ---")
+        for i, contato in enumerate(encontrados, 1):
+            print(f"{i}. {contato['nome']} - {contato['telefone']} - {contato['email']}")
+    else:
+        print("Nenhum contato encontrado.")
+
+def remover_contato():
+    if not contatos:
+        print("Nenhum contato cadastrado.")
+        return
+    
+    listar_contatos()
+    try:
+        indice = int(input("\nDigite o número do contato a remover: ")) - 1
+        
+        if 0 <= indice < len(contatos):
+            contato_removido = contatos.pop(indice)
+            print(f"Contato '{contato_removido['nome']}' removido com sucesso!")
+        else:
+            print("Número inválido!")
+    except ValueError:
+        print("Por favor, digite um número válido.")
+
 def main():
     while True:
         print("\n=== AGENDA DE CONTATOS ===")
         print("1. Adicionar contato")
         print("2. Listar contatos")
-        print("3. Sair")
+        print("3. Buscar contato")
+        print("4. Remover contato")
+        print("5. Sair")
         
         opcao = input("Escolha uma opção: ")
         
@@ -42,10 +80,14 @@ def main():
         elif opcao == "2":
             listar_contatos()
         elif opcao == "3":
+            buscar_contato()
+        elif opcao == "4":
+            remover_contato()
+        elif opcao == "5":
             print("Saindo...")
             break
         else:
             print("Opção inválida!")
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()
