@@ -47,13 +47,31 @@ def buscar_contato():
     else:
         print("Nenhum contato encontrado.")
 
+def remover_contato():
+    if not contatos:
+        print("Nenhum contato cadastrado.")
+        return
+    
+    listar_contatos()
+    try:
+        indice = int(input("\nDigite o número do contato a remover: ")) - 1
+        
+        if 0 <= indice < len(contatos):
+            contato_removido = contatos.pop(indice)
+            print(f"Contato '{contato_removido['nome']}' removido com sucesso!")
+        else:
+            print("Número inválido!")
+    except ValueError:
+        print("Por favor, digite um número válido.")
+
 def main():
     while True:
         print("\n=== AGENDA DE CONTATOS ===")
         print("1. Adicionar contato")
         print("2. Listar contatos")
         print("3. Buscar contato")
-        print("4. Sair")
+        print("4. Remover contato")
+        print("5. Sair")
         
         opcao = input("Escolha uma opção: ")
         
@@ -64,6 +82,8 @@ def main():
         elif opcao == "3":
             buscar_contato()
         elif opcao == "4":
+            remover_contato()
+        elif opcao == "5":
             print("Saindo...")
             break
         else:
